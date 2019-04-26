@@ -128,10 +128,6 @@ namespace OOP_UI
 
         private void BCreate_Click(object sender, EventArgs e)
         {
-            /*Type type = Type.GetType("OOP_UI." + CBTypes.SelectedItem, false, true);
-            object obj = Activator.CreateInstance(type);
-            EnterprisesList.Add(obj);*/
-
             EnterprisesList.Add((Enterprises)(TypesList[CBTypes.SelectedIndex].GetConstructor(Type.EmptyTypes).Invoke(Type.EmptyTypes)));
 
             Form EForm = new ItemForm(EnterprisesList[EnterprisesList.Count - 1], EnterprisesList);
@@ -140,14 +136,6 @@ namespace OOP_UI
             EForm.Dispose();
 
             Redraw(LVMain, EnterprisesList);
-
-            /*ListViewItem LVItem = LVMain.Items[(EnterprisesList.Count - 1)];
-            if (LVItem != null)
-            {
-                LVMain.Focus();
-                LVItem.Selected = true;
-                BEdit.PerformClick();
-            }*/ 
         }
 
         private void BEdit_Click(object sender, EventArgs e)
@@ -167,70 +155,6 @@ namespace OOP_UI
             EForm.Dispose();
 
             Redraw(LVMain, EnterprisesList);
-
-/*            int SelectedIndex;
-
-            if (LVMain.SelectedIndices.Count != 0)
-                SelectedIndex = LVMain.SelectedIndices[0];
-            else
-                return;
-
-            object item = EnterprisesList[SelectedIndex];
-
-            FieldInfo[] ItemFields = item.GetType().GetFields();
-
-            FEdit = new Form
-            {
-                Text = item.GetType().ToString(),
-                Size = new System.Drawing.Size(300, 60 + 25 * (ItemFields.Length + 2))
-            };
-
-            for (int i = 0; i < ItemFields.Length; i++)
-            {
-
-                Label label = new Label
-                {
-                    Location = new Point(15, 25 * (i + 1)),
-                    Width = string.Concat(ItemFields[i].FieldType.Name, " ", ItemFields[i].Name).Length * 7,
-                    Text = string.Concat(ItemFields[i].FieldType.Name, " ", ItemFields[i].Name)
-                };
-
-                FEdit.Controls.Add(label);
-
-                if (ItemFields[i].FieldType.IsPrimitive || (ItemFields[i].FieldType == typeof(string)))
-                {
-                    TextBox text = new TextBox()
-                    {
-                        Name = ItemFields[i].Name,
-                        Location = new Point(15 + label.Width, 25 * (i + 1)),
-                        Width = FEdit.Width - (label.Location.X + label.Width + 30),
-                        Text = ItemFields[i].GetValue(item).ToString()
-                    };
- 
-                    FEdit.Controls.Add(text);
-                }
-                else
-                {
-                    ComboBox combo = new ComboBox()
-                    {
-                        Name = ItemFields[i].Name,
-                        Location = new Point(15 + label.Width, 25 * (i + 1)),
-                        Width = FEdit.Width - (label.Location.X + label.Width + 30),
-                        SelectionStart = 0,
-                        DropDownStyle = ComboBoxStyle.DropDownList,
-                    };
-
-                    foreach (var type in ItemFields[i].FieldType.GetEnumNames())
-                        combo.Items.Add(type);
-
-                    combo.SelectedIndex = 0;
-
-                    FEdit.Controls.Add(combo);
-                }
-            }
-
-            FEdit.ShowDialog();
-            FEdit.Dispose();*/
 
         }
 

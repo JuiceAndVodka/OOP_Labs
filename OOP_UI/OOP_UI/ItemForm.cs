@@ -64,7 +64,6 @@ namespace OOP_UI
                 {
                     Location = new Point(paddingLeft, paddingUp * (i + 1)),
                     Width = base.Width / 2,
-                    //Text = string.Concat(fields[i].Name, " - ", fields[i].FieldType.Name, ": ")
                     Text = fieldName
                 };
 
@@ -187,19 +186,13 @@ namespace OOP_UI
 
             FieldInfo[] fields = pEnterprise.GetType().GetFields();
 
-            //Сохранение значений чекбоксов
-            foreach (var control in base.Controls.OfType<CheckBox>().ToList())
-            {
-                FieldInfo FI = fields.ToList().Where(field => field.Name == control.Name).First();
-                FI.SetValue(pEnterprise, Convert.ChangeType(control.Checked, FI.FieldType));
-            }
             //Преобразование текста в значение
             foreach (var control in base.Controls.OfType<TextBox>().ToList())
             {
                 if (fields.ToList().Where(field => field.Name == control.Name).Count() != 0)
                 {
                     FieldInfo FI = fields.ToList().Where(field => field.Name == control.Name).First();
-                    var FIValye = FI.GetValue(pEnterprise);
+                    var FIValue = FI.GetValue(pEnterprise);
                     try
                     {
                         FI.SetValue(pEnterprise, Convert.ChangeType(control.Text, FI.FieldType));
@@ -207,7 +200,7 @@ namespace OOP_UI
                     catch
                     {
                         //Восстанавливаем старое значение
-                        FI.SetValue(pEnterprise, FIValye);
+                        FI.SetValue(pEnterprise, FIValue);
                         MessageBox.Show(FI.Name + " Error: field text value");
                     }
                 }
