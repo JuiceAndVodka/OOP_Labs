@@ -33,6 +33,10 @@
             this.BDelete = new System.Windows.Forms.Button();
             this.BEdit = new System.Windows.Forms.Button();
             this.LVMain = new System.Windows.Forms.ListView();
+            this.MenuStrip = new System.Windows.Forms.MenuStrip();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // CBTypes
@@ -75,12 +79,37 @@
             // 
             // LVMain
             // 
-            this.LVMain.Location = new System.Drawing.Point(12, 12);
+            this.LVMain.Location = new System.Drawing.Point(12, 31);
             this.LVMain.Name = "LVMain";
-            this.LVMain.Size = new System.Drawing.Size(622, 292);
+            this.LVMain.Size = new System.Drawing.Size(622, 273);
             this.LVMain.TabIndex = 4;
             this.LVMain.UseCompatibleStateImageBehavior = false;
             this.LVMain.View = System.Windows.Forms.View.List;
+            // 
+            // MenuStrip
+            // 
+            this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.loadToolStripMenuItem});
+            this.MenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(646, 28);
+            this.MenuStrip.TabIndex = 6;
+            this.MenuStrip.Text = "MenuStrip";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(52, 24);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
+            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // FMain
             // 
@@ -92,13 +121,17 @@
             this.Controls.Add(this.BDelete);
             this.Controls.Add(this.BCreate);
             this.Controls.Add(this.CBTypes);
+            this.Controls.Add(this.MenuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "FMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.FMain_Load);
+            this.MenuStrip.ResumeLayout(false);
+            this.MenuStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -109,6 +142,9 @@
         private System.Windows.Forms.Button BDelete;
         private System.Windows.Forms.Button BEdit;
         private System.Windows.Forms.ListView LVMain;
+        private System.Windows.Forms.MenuStrip MenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
     }
 }
 

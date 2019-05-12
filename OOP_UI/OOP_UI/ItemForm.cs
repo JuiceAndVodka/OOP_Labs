@@ -27,13 +27,13 @@ namespace OOP_UI
         public ItemForm(Enterprises Enterprise, List<Enterprises> EnterprisesList)
         {
             //список всех полей объекта
-            FieldInfo[] fields = Enterprise.GetType().GetFields(); ;
+            FieldInfo[] fields = Enterprise.GetType().GetFields();
 
             //получение имени формы
             string fieldName = Enterprise.GetType().ToString();
 
             //если у экземляра класса имеется атрибут с названием, то форма будет иметь соответствующее имя
-            object[] attributes = Enterprise.GetType().GetCustomAttributes(typeof(InfoAttribute), true);
+            object[] attributes = Enterprise.GetType().GetCustomAttributes(typeof(InfoAttribute), inherit: true);
             if (attributes.Length != 0)
             {
                 InfoAttribute myAttr = (InfoAttribute)attributes[0];
@@ -69,9 +69,14 @@ namespace OOP_UI
 
                 base.Controls.Add(label);
 
+                //1  можно использовать рефакторинг
                 //Создание для стандартных типов значений текстовых полей ввода, и их заполнение
-                if (((fields[i].FieldType.IsPrimitive) && (!fields[i].FieldType.IsEnum))
-                  || (fields[i].FieldType == typeof(string)))
+                if (fields[i].FieldType == typeof(bool))
+                {
+                    base.Controls.Add(MakeCheckBox(fields, Enterprise, label, i));
+                }
+                else if (((fields[i].FieldType.IsPrimitive) && (!fields[i].FieldType.IsEnum))
+                        || (fields[i].FieldType == typeof(string)))
                 {
                     base.Controls.Add(MakeTextBox(fields, Enterprise, label, i));
                 }
@@ -87,6 +92,7 @@ namespace OOP_UI
                 {
                     base.Controls.Add(MakeObjectBox(fields, Enterprise, EnterprisesList, label, i));
                 }
+                //1
             }
 
             //кнопка сохранения
@@ -105,6 +111,18 @@ namespace OOP_UI
 
             base.Controls.Add(SaveBut);
 
+        }
+
+        private CheckBox MakeCheckBox(FieldInfo[] qfields, Enterprises qEnterprise, Label qlabel, int i)
+        {
+            CheckBox check = new CheckBox()
+            {
+                Name = qfields[i].Name,
+                Location = new Point(paddingLeft + qlabel.Width, fieldHeight * (i + 1)),
+                Checked = (bool)qfields[i].GetValue(qEnterprise)
+            };
+
+            return check;
         }
 
         private TextBox MakeTextBox(FieldInfo[] qfields, Enterprises qEnterprise, Label qlabel, int i)
@@ -154,9 +172,7 @@ namespace OOP_UI
             //заполнение списка
             for (int j = 0; j < SuitableItems.Count; j++)
             {
-                var EnterpriseField = SuitableItems[j].GetType().GetField("Name");
-                if (EnterpriseField != null)
-                    comboBox.Items.Add(EnterpriseField.GetValue(SuitableItems[j]));
+                comboBox.Items.Add(SuitableItems[j].Name);
             }
 
             //Установка связанного обьекта
@@ -185,6 +201,13 @@ namespace OOP_UI
                 return;
 
             FieldInfo[] fields = pEnterprise.GetType().GetFields();
+
+            //Сохранение значений чекбоксов
+            foreach (var control in base.Controls.OfType<CheckBox>().ToList())
+            {
+                FieldInfo FI = fields.ToList().Where(field => field.Name == control.Name).First();
+                FI.SetValue(pEnterprise, Convert.ChangeType(control.Checked, FI.FieldType));
+            }
 
             //Преобразование текста в значение
             foreach (var control in base.Controls.OfType<TextBox>().ToList())

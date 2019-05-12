@@ -16,3 +16,7 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\obj\x86\Debug\
 C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.ItemForm.resources
 C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.Properties.Resources.resources
 C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.csproj.GenerateResource.Cache
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.TypeOfFile.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.xml

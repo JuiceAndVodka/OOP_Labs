@@ -13,59 +13,61 @@ namespace OOP_UI
     public partial class FMain : Form
     {
 
+        //список создаваемых предприятий
         public List<Enterprises> EnterprisesList = new List<Enterprises>()
         {
             new Fishing() { Name = "Артель рыболов «Гетеборг»", AmountOfWorkers = 50, Locations = "г. Брянск",
-                            OnLand = boolean.False, OnWater = boolean.True, InOcean = boolean.False, 
-                            InSea = boolean.False, InRiver = boolean.True, Fish = 10000
+                            OnLand = false, OnWater = true, InOcean = false, 
+                            InSea = false, InRiver = true, Fish = 10000
                           },
 
             new MiningEnterprise() { Name = "ТОО \"Оркен\"", AmountOfWorkers = 100, Locations = "Степногорск",
-                                     OnLand = boolean.True, OnWater = boolean.False, Mine = boolean.False,
-                                     Quarry = boolean.True, DurationOfMining = 1365, LevelOfDanger = 2,
+                                     OnLand = true, OnWater = false, Mine = false,
+                                     Quarry = true, DurationOfMining = 1365, LevelOfDanger = 2,
                                    },
 
-            new HydroPowerPlant() { Name = "Саяно-Шушенская ГЭС", AmountOfWorkers = 70, Locations = "Саяногорск", 
-                                    OnLand = boolean.False, OnWater = boolean.True, PowerOfStation = 6400, 
+            new HydroPowerPlant() { Name = "Саяно-Шушенская ГЭС", AmountOfWorkers = 70, Locations = "Саяногорск",
+                                    OnLand = false, OnWater = true, PowerOfStation = 6400, 
                                     PowerOfWaterPressure = 194, TypeOfStation = HydroPowerPlant.Stations.Accumulating
                                   },
 
-            new ThermalPowerPlant() { Name = "Сургутская ГРЭС-1", AmountOfWorkers = 65, Locations = "г. Сургут",
-                                      LocalRawMaterial = boolean.False, DangerRawMaterial = boolean.True, 
+            new ThermalPowerPlant() { Name = "Сургутская ГРЭС-1", AmountOfWorkers = 65, Locations = "г. Сургут", 
+                                      LocalRawMaterial = false, DangerRawMaterial = true, 
                                       TypeOfFuel = ThermalPowerPlant.Fuels.NatureGas
                                     },
 
             new BakeryEnterprise() { Name = "ООО Уком", AmountOfWorkers = 53, Locations = "г. Новосибирск",
-                                     ProductsWithFlour = boolean.True, ProductsWithMeat = boolean.False,
-                                     ProductsWithMilk = boolean.False, ProductsWithSugar = boolean.True,
-                                     LocalRawMaterial = boolean.False, DangerRawMaterial = boolean.False,
+                                     ProductsWithFlour = true, ProductsWithMeat = true,
+                                     ProductsWithMilk = false, ProductsWithSugar = true,
+                                     LocalRawMaterial = false, DangerRawMaterial = false,
                                      AmountOfFlour = 120, Eggs = 300000, Milk = 700, Sail = 200,
                                      Sugar = 300, TypeOfFlour = BakeryEnterprise.Flours.Wheat, Water = 2 
                                    },
 
             new MeatProcessingPlant() { Name = "Перерабатывающий завод \"Витебск Мясокомбината\"", AmountOfWorkers = 15,
-                                        Locations = "г. Витебск", LocalRawMaterial = boolean.True, DangerRawMaterial = boolean.False,
-                                        ProductsWithFlour = boolean.False, ProductsWithMeat = boolean.True, 
-                                        ProductsWithMilk = boolean.False, ProductsWithSugar = boolean.False,
-                                        CannedFood = boolean.True, Sausages = boolean.True, Semis = boolean.True,
-                                        LocalMeat = boolean.True, NeededMeat = 1000
+                                        Locations = "г. Витебск", LocalRawMaterial = true, DangerRawMaterial = false,
+                                        ProductsWithFlour = false, ProductsWithMeat = true, 
+                                        ProductsWithMilk = false, ProductsWithSugar = false,
+                                        CannedFood = true, Sausages = true, Semis = true,
+                                        LocalMeat = true, NeededMeat = 1000
                                       },
 
-            new MeatCombine() { Name = "\"ОАО Витебск Мясокомбинат\"", AmountOfWorkers = 53, Locations = "г Витебск",
-                                LocalRawMaterial = boolean.False, DangerRawMaterial = boolean.False,
-                                ProductsWithFlour = boolean.False, ProductsWithMeat = boolean.True,
-                                ProductsWithMilk = boolean.False, ProductsWithSugar = boolean.False,
+            new MeatCombine() { Name = "\"ОАО Витебск Мясокомбинат\"", AmountOfWorkers = 53, Locations = "г. Витебск",
+                                LocalRawMaterial = false, DangerRawMaterial = false,
+                                ProductsWithFlour = false, ProductsWithMeat = true,
+                                ProductsWithMilk = false, ProductsWithSugar = false,
                                 AmountOfCattle = 400, AmountOfFreshMeat = 400, KeepingMeat = 700
                               },
 
             new MilkEnterprise() { Name = "\"ОАО Витебск Молоко\"", AmountOfWorkers = 34, Locations = "г. Витебск",
-                                   LocalRawMaterial = boolean.False, DangerRawMaterial = boolean.False,
-                                   ProductsWithFlour = boolean.False, ProductsWithMeat = boolean.False,
-                                   ProductsWithMilk = boolean.True, ProductsWithSugar = boolean.True, 
+                                   LocalRawMaterial = false, DangerRawMaterial = false,
+                                   ProductsWithFlour = false, ProductsWithMeat = false,
+                                   ProductsWithMilk = true, ProductsWithSugar = true, 
                                  }
 
         };
 
+        //список типов каждого предприятия
         public List<Type> TypesList = new List<Type>()
         {
             typeof(Fishing),
@@ -86,6 +88,7 @@ namespace OOP_UI
             InitializeComponent();
         }
 
+        //загрузка формы
         private void FMain_Load(object sender, EventArgs e)
         {
             LVMain.MultiSelect = false;
@@ -100,6 +103,7 @@ namespace OOP_UI
             Redraw(LVMain, EnterprisesList);
         }
 
+        //перерисовка списка
         public void Redraw(ListView listView, List<Enterprises> items)
         {
             listView.Clear();
@@ -126,11 +130,13 @@ namespace OOP_UI
             }
         }
 
+        //создание нового предприятия
         private void BCreate_Click(object sender, EventArgs e)
         {
-            EnterprisesList.Add((Enterprises)(TypesList[CBTypes.SelectedIndex].GetConstructor(Type.EmptyTypes).Invoke(Type.EmptyTypes)));
+            Enterprises newObject = (Enterprises) Activator.CreateInstance(TypesList[CBTypes.SelectedIndex]);
+            EnterprisesList.Add(newObject);
 
-            Form EForm = new ItemForm(EnterprisesList[EnterprisesList.Count - 1], EnterprisesList);
+            Form EForm = new ItemForm(newObject, EnterprisesList);
             EForm.StartPosition = FormStartPosition.CenterScreen;
             EForm.ShowDialog();
             EForm.Dispose();
@@ -138,6 +144,7 @@ namespace OOP_UI
             Redraw(LVMain, EnterprisesList);
         }
 
+        //редактирование выбранного предприятия
         private void BEdit_Click(object sender, EventArgs e)
         {
 
@@ -180,6 +187,7 @@ namespace OOP_UI
             ObjectList.Remove(DelObject);
         }
 
+        //удаление выбранного предприятия
         private void BDelete_Click(object sender, EventArgs e)
         {
             if ((LVMain.SelectedIndices.Count != 0) && (LVMain.SelectedIndices[0] < EnterprisesList.Count))
@@ -189,6 +197,26 @@ namespace OOP_UI
                 Delete_Action(EnterprisesList[itemNum], EnterprisesList);
             }
             Redraw(LVMain, EnterprisesList);
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TypeOfFile fTypeOfFile = new TypeOfFile(EnterprisesList, "save");
+            this.Hide();
+            fTypeOfFile.ShowDialog();
+            fTypeOfFile.Dispose();
+            this.Show();
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {   
+            TypeOfFile fTypeOfFile = new TypeOfFile(EnterprisesList, "load");
+            this.Hide();
+            fTypeOfFile.ShowDialog();
+            EnterprisesList = fTypeOfFile.TheValue;
+            fTypeOfFile.Dispose();
+            Redraw(LVMain, EnterprisesList);
+            this.Show();
         }
 
     }

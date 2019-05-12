@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace OOP_UI
 {
+    // bool? = Nullable<bool>
+//    public enum boolean { None = 0, True = 1, False = 2 }
 
-    public enum boolean { None = 0, True = 1, False = 2 }
-
+    [Serializable]
+    [XmlInclude(typeof(ExtractiveEnterprise)), XmlInclude(typeof(ManufacturingEnterprise))]
     public class Enterprises
     {
+
         [Info("Именование предприятия")]
         public string Name;
 
@@ -27,32 +31,35 @@ namespace OOP_UI
         }
     }
 
+    [Serializable]
+    [XmlInclude(typeof(Fishing)), XmlInclude(typeof(MiningEnterprise)), XmlInclude(typeof(HydroPowerPlant))]
     public class ExtractiveEnterprise : Enterprises
     {
         [Info("Добыча на земле")]
-        public boolean OnLand;
+        public bool OnLand;
 
         [Info("Добыча на воде")]
-        public boolean OnWater;
+        public bool OnWater;
 
         public ExtractiveEnterprise()
         {
-            OnLand = boolean.True;
-            OnWater = boolean.None;
+            OnLand = true;
+            OnWater = false;
         }
     }
 
+    [Serializable]
     [Info("Предприятие по ловле рыбы")]
     public class Fishing : ExtractiveEnterprise
     {
         [Info("Имеется ли добыча в реках")]
-        public boolean InRiver;
+        public bool InRiver;
 
         [Info("Имеется ли добыча в море")]
-        public boolean InSea;
+        public bool InSea;
 
         [Info("Имеется ли добыча в океане")]
-        public boolean InOcean;
+        public bool InOcean;
 
         [Info("Имеющаяся рыба ( в кг )")]
         public int Fish;
@@ -62,23 +69,24 @@ namespace OOP_UI
 
         public Fishing()
         {
-            InRiver = boolean.False;
-            InSea = boolean.True;
-            InOcean = boolean.True;
+            InRiver = false;
+            InSea = true;
+            InOcean = true;
             Fish = 1000000; // в кг
             TypesOfFish = "Herring, Cod, Catfish, Flounder, Roach";
         }
 
     }
 
+    [Serializable]
     [Info("Горнодобывающее предприятие")]
     public class MiningEnterprise : ExtractiveEnterprise
     {
         [Info("Шахтовая добыча")]
-        public boolean Mine;
+        public bool Mine;
 
         [Info("Карьерная добыча")]
-        public boolean Quarry;
+        public bool Quarry;
 
         [Info("Виды добываемой руды")]
         public string TypesOfMining;
@@ -91,14 +99,15 @@ namespace OOP_UI
 
         public MiningEnterprise()
         {
-            Mine = boolean.True;
-            Quarry = boolean.False;
+            Mine = true;
+            Quarry = false;
             TypesOfMining = "Gold, Silver, Iron, Titanium";
             DurationOfMining = 3200; // в днях
             LevelOfDanger = 4; // по 10-й шкале
         }
     }
 
+    [Serializable]
     [Info("Гидроэлектростанция")]
     public class HydroPowerPlant : ExtractiveEnterprise
     {
@@ -121,21 +130,24 @@ namespace OOP_UI
         }
     }
 
+    [Serializable]
+    [XmlInclude(typeof(ThermalPowerPlant)), XmlInclude(typeof(FoodEnterprise))]
     public class ManufacturingEnterprise : Enterprises
     {
         [Info("Используется локальное сырьё")]
-        public boolean LocalRawMaterial;
+        public bool LocalRawMaterial;
 
         [Info("Работает с опасным сырьём")]
-        public boolean DangerRawMaterial;
+        public bool DangerRawMaterial;
 
         public ManufacturingEnterprise()
         {
-            LocalRawMaterial = boolean.True;
-            DangerRawMaterial = boolean.False;
+            LocalRawMaterial = true;
+            DangerRawMaterial = false;
         }
     }
 
+    [Serializable]
     [Info("Теплоэлектростанция")]
     public class ThermalPowerPlant : ManufacturingEnterprise
     {
@@ -155,29 +167,33 @@ namespace OOP_UI
 
     }
 
+    [Serializable]
+    [XmlInclude(typeof(BakeryEnterprise)), XmlInclude(typeof(MeatProcessingPlant)), 
+     XmlInclude(typeof(MeatCombine)), XmlInclude(typeof(MilkEnterprise))]
     public class FoodEnterprise : ManufacturingEnterprise
     {
         [Info("Продукты из мяса")]
-        public boolean ProductsWithMeat;
+        public bool ProductsWithMeat;
 
         [Info("Продукты из молока")]
-        public boolean ProductsWithMilk;
+        public bool ProductsWithMilk;
 
         [Info("Продукты с сахаром")]
-        public boolean ProductsWithSugar;
+        public bool ProductsWithSugar;
 
         [Info("Продукты из муки")]
-        public boolean ProductsWithFlour;
+        public bool ProductsWithFlour;
 
         public FoodEnterprise()
         {
-            ProductsWithMeat = boolean.False;
-            ProductsWithMilk = boolean.False;
-            ProductsWithSugar = boolean.True;
-            ProductsWithFlour = boolean.False;
+            ProductsWithMeat = false;
+            ProductsWithMilk = false;
+            ProductsWithSugar = false;
+            ProductsWithFlour = false;
         }
     }
 
+    [Serializable]
     [Info("Хлебобулочное предприятие")]
     public class BakeryEnterprise : FoodEnterprise
     {
@@ -216,34 +232,36 @@ namespace OOP_UI
         }
     }
 
+    [Serializable]
     [Info("Мясоперерабатывающий завод")]
     public class MeatProcessingPlant : FoodEnterprise
     {
         [Info("Мясо добывается рядом")]
-        public boolean LocalMeat;
+        public bool LocalMeat;
 
         [Info("Количество нужного мяса ( в кг )")]
         public int NeededMeat;
 
         [Info("Производят ли колбасы")]
-        public boolean Sausages;
+        public bool Sausages;
 
         [Info("Производят ли полуфабрикаты")]
-        public boolean Semis;
+        public bool Semis;
 
         [Info("Производят ли консервы")]
-        public boolean CannedFood;
+        public bool CannedFood;
 
         public MeatProcessingPlant()
         {
-            LocalMeat = boolean.True;
+            LocalMeat = true;
             NeededMeat = 1000; // в кг
-            Sausages = boolean.True;
-            Semis = boolean.True;
-            CannedFood = boolean.False;
+            Sausages = true;
+            Semis = true;
+            CannedFood = false;
         }
     }
 
+    [Serializable]
     [Info("Мясокомбинат")]
     public class MeatCombine : FoodEnterprise
     {
@@ -268,6 +286,7 @@ namespace OOP_UI
         }
     }
 
+    [Serializable]
     [Info("Молочное предприятие")]
     public class MilkEnterprise : FoodEnterprise
     {
