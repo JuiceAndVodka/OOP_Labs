@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using PluginInterface;
 
 namespace OOP_UI
 {
@@ -14,21 +16,50 @@ namespace OOP_UI
         string WhatAction;
         private List<Enterprises> qEnterprisesList;
         public List<Enterprises> TheValue { get { return qEnterprisesList; } }
+        private List<EnteprisesSerializer> Serializers = new List<EnteprisesSerializer>
+        {
+            new Binary(),
+            new JSON(),
+            new Alex()
+        };
+        private List<IPlugin> qPluginsList;
 
-        public TypeOfFile(List<Enterprises> pEnterprisesList, string action)
+        public TypeOfFile(List<Enterprises> pEnterprisesList, List<IPlugin> pPluginsList,string action)
         {
             InitializeComponent();
 
             WhatAction = action;
             qEnterprisesList = pEnterprisesList;
+            qPluginsList = pPluginsList;
 
             CBType.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            CBType.Items.Add("Binary file");
-            CBType.Items.Add("JSON file");
-            CBType.Items.Add("Text file");
+            foreach (var item in Serializers)
+            {
+                CBType.Items.Add(item.Name);
+            }
 
             CBType.SelectedIndex = 0;
+
+            CBPlugins.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            if (WhatAction != "save")
+            {
+                LabelChoise.Enabled = false;
+                CheckChoise.Enabled = false;
+                LabelPlugins.Enabled = false;
+                CBPlugins.Enabled = false;
+            }
+            else
+            {
+                foreach (var item in qPluginsList)
+                {
+                    CBPlugins.Items.Add(item.Name);
+                }
+
+                CBPlugins.SelectedIndex = 0;
+            }
+
         }
 
         private void BCancel_Click(object sender, EventArgs e)
@@ -40,87 +71,154 @@ namespace OOP_UI
         {
             string FileType = CBType.SelectedItem.ToString();
 
-            string FileExtension = "";
+            EnteprisesSerializer Serializator = Serializers[CBType.SelectedIndex];
 
-            switch (FileType)
-            {
-                case "Binary file":
-                    FileExtension = "bin";
-                    break;
+            string FileExtension = Serializator.FileExtenstion;
 
-                case "JSON file":
-                    FileExtension = "json";
-                    break;
-
-                case "Text file":
-                    FileExtension = "txt";
-                    break;
-            }
-
-            string FilePath = "";
+            string FilePath;
 
             if (WhatAction == "save")
             {
-                SaveDialog.DefaultExt = FileExtension;
-                SaveDialog.AddExtension = true;
-                SaveDialog.Filter = FileType + " (*." + FileExtension + ")|*." + FileExtension;
+
+                string ExpansionFilter;
+
+                if (CheckChoise.Checked)
+                {
+                    string newExpansion = FileExtension + qPluginsList[CBPlugins.SelectedIndex].Expansion;
+
+                    ExpansionFilter = qPluginsList[CBPlugins.SelectedIndex].Name + " (*" + newExpansion + ")|*" + newExpansion;
+
+                }
+                else
+                {
+                    ExpansionFilter = FileType + " (*" + FileExtension + ")|*" + FileExtension;
+                }
+
+                SaveDialog.Filter = ExpansionFilter;
                 SaveDialog.InitialDirectory = "D:\\";
 
                 if (SaveDialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
                 FilePath = SaveDialog.FileName;
+
+                using (FileStream newStream = new FileStream(FilePath, FileMode.Create))
+                {
+                    Serializator.Serialize(newStream, qEnterprisesList);
+                }
+
+                if (CheckChoise.Checked)
+                {
+                    byte[] TextBytes;
+
+
+                    if (Serializator.FinalResult == "string")
+                        using (StreamReader ReadStream = new StreamReader(FilePath))
+                        {
+                            TextBytes = System.Text.Encoding.UTF8.GetBytes(ReadStream.ReadToEnd());
+                        }
+                    else
+                        TextBytes = File.ReadAllBytes(FilePath);
+
+                    using (FileStream pluginStream = new FileStream(FilePath, FileMode.Create))
+                    {
+                        qPluginsList[CBPlugins.SelectedIndex].Encode(pluginStream, TextBytes);
+                    }
+                }
+
+                MessageBox.Show("Успешное сохранение!");
             }
             else
             {
-                OpenDialog.DefaultExt = FileExtension;
-                OpenDialog.AddExtension = true;
-                OpenDialog.Filter = FileType + " (*." + FileExtension + ")|*." + FileExtension;
+                string ExpansionFilter;
+
+                ExpansionFilter = FileType + " (*" + FileExtension + ")|*" + FileExtension;
+
+                foreach (var item in qPluginsList)
+                {
+                    ExpansionFilter += "|" + item.Name + " (*" + FileExtension + item.Expansion + ")|*" + FileExtension + item.Expansion;
+                }
+
+                OpenDialog.Filter = ExpansionFilter;
                 OpenDialog.InitialDirectory = "D:\\";
 
                 if (OpenDialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
-               FilePath = OpenDialog.FileName;
-            }
+                FilePath = OpenDialog.FileName;
 
-            switch (FileType)
-            {
-                case "Binary file":
-                    if (WhatAction == "save")
+                string FileExpansion = FilePath.Substring(FilePath.LastIndexOf("."));
+                bool DidCreateCopyFile = false;
+
+                if (FileExpansion != FileExtension)
+                {
+                    int NumberInList = 0;
+                    bool DoesWeHavaPlugin = false;
+
+                    for (int i = 0; i < qPluginsList.Count; i++)
                     {
-                        BinarySerialization.WriteToBinaryFile<List<Enterprises>>(FilePath, qEnterprisesList);
+                        if (FileExpansion == qPluginsList[i].Expansion)
+                        {
+                            NumberInList = i;
+                            DoesWeHavaPlugin = true;
+                            break;
+                        }
+                    }
+
+                    if (!DoesWeHavaPlugin)
+                    {
+                        MessageBox.Show("Невозможно загрузить файл, так как отсутствует соответствующий плагин");
+                        return;
                     }
                     else
                     {
-                        qEnterprisesList.Clear();
-                        qEnterprisesList = BinarySerialization.ReadFromBinaryFile<List<Enterprises>>(FilePath);
-                    }
-                    break;
+                        DidCreateCopyFile = true;
 
-                case "JSON file":
-                    if (WhatAction == "save")
-                    {
-                        JsonSerialization.WriteToJsonFile(FilePath, qEnterprisesList);
-                    }
-                    else
-                    {
-                        qEnterprisesList.Clear();
-                        qEnterprisesList = JsonSerialization.ReadFromJsonFile<List<Enterprises>>(FilePath);
-                    }
-                    break;
+                        string CopyFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Temp");
 
-                case "Text file":
-                    if (WhatAction == "save")
-                    {
-                        TextSerialization.StartWriting<List<Enterprises>>(FilePath, qEnterprisesList);
+                        DirectoryInfo pluginDirectory = new DirectoryInfo(CopyFilePath);
+                        if (!pluginDirectory.Exists)
+                            pluginDirectory.Create();
+
+                        string bufPath = FilePath;
+                        FilePath = CopyFilePath + "\\(copy)" + FilePath.Substring(FilePath.LastIndexOf("\\") + 1);
+
+                        if (File.Exists(FilePath))
+                            File.Delete(FilePath);
+
+                        File.Copy(bufPath, FilePath);
+
+                        byte[] Bytes;
+                        using (FileStream pluginStream = new FileStream(FilePath, FileMode.Open))
+                        {
+                            Bytes = qPluginsList[NumberInList].Decode(pluginStream);
+                        }
+
+                        using (FileStream pluginStream = new FileStream(FilePath, FileMode.Create))
+                        {
+                            if (Serializator.FinalResult == "string")
+                                using (StreamWriter WriteStream = new StreamWriter(pluginStream))
+                                {
+                                    WriteStream.Write(System.Text.Encoding.UTF8.GetString(Bytes));
+                                }
+                            else
+                                pluginStream.Write(Bytes, 0, Bytes.Length);
+                        }
                     }
-                    else
-                    {
-                        qEnterprisesList.Clear();
-                        qEnterprisesList = TextSerialization.StartGetting<List<Enterprises>>(FilePath);
-                    }
-                    break;
+                }
+
+                using (FileStream newStream = new FileStream(FilePath, FileMode.OpenOrCreate))
+                {
+                    qEnterprisesList.Clear();
+                    qEnterprisesList = (List<Enterprises>)Serializator.Deserialize(newStream);
+                }
+
+                if (DidCreateCopyFile)
+                {
+                    File.Delete(FilePath);
+                }
+
+                MessageBox.Show("Успешная загрузка!");
             }
 
             this.Close();

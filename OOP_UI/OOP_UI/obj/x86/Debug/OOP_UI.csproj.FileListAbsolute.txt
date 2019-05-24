@@ -20,3 +20,31 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\obj\x86\Debug\
 C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.exe
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\OOP_UI.exe
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\OOP_UI.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.FMain.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.ItemForm.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.Properties.Resources.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.TypeOfFile.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.csproj.GenerateResource.Cache
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\OOP_UI.exe
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\OOP_UI.pdb
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.csprojAssemblyReference.cache
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.FMain.resources
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.ItemForm.resources
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.Properties.Resources.resources
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.TypeOfFile.resources
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.csproj.GenerateResource.cache
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.csproj.CopyComplete
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.exe
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\obj\x86\Debug\OOP_UI.pdb
+C:\Users\User\source\repos\OOP_Labs\OOP_UI\OOP_UI\bin\Debug\PluginInterface.dll

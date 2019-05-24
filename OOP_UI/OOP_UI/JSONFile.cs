@@ -9,7 +9,7 @@ namespace OOP_UI
 {
     public static class JsonSerialization
     {
-        public static void WriteToJsonFile(string filePath, object objectToWrite)
+        public static void WriteToJsonFile<T>(string filePath, T objectToWrite)
         {
             string jsonObject = JsonConvert.SerializeObject(objectToWrite, Formatting.Indented, new JsonSerializerSettings
             {

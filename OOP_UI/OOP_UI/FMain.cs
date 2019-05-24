@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
+using System.IO;
+using PluginInterface;
 
 namespace OOP_UI
 {
@@ -80,6 +82,8 @@ namespace OOP_UI
             typeof(MilkEnterprise)
         };
 
+        public List<IPlugin> PluginsList = new List<IPlugin>();
+
         public int SelectedIndex;
         public Form FEdit;
 
@@ -99,6 +103,8 @@ namespace OOP_UI
 
             CBTypes.SelectedIndex = 0;
             CBTypes.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            LoadPlugins();
 
             Redraw(LVMain, EnterprisesList);
         }
@@ -199,24 +205,55 @@ namespace OOP_UI
             Redraw(LVMain, EnterprisesList);
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TypeOfFile fTypeOfFile = new TypeOfFile(EnterprisesList, "save");
+            TypeOfFile fTypeOfFile = new TypeOfFile(EnterprisesList, PluginsList, "save");
             this.Hide();
             fTypeOfFile.ShowDialog();
             fTypeOfFile.Dispose();
             this.Show();
         }
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
         {   
-            TypeOfFile fTypeOfFile = new TypeOfFile(EnterprisesList, "load");
+            TypeOfFile fTypeOfFile = new TypeOfFile(EnterprisesList, PluginsList, "load");
             this.Hide();
             fTypeOfFile.ShowDialog();
             EnterprisesList = fTypeOfFile.TheValue;
             fTypeOfFile.Dispose();
             Redraw(LVMain, EnterprisesList);
             this.Show();
+        }
+
+        private void LoadPlugins()
+        {
+            string pluginPath = Path.Combine(Directory.GetCurrentDirectory(),"Plugins");
+
+            DirectoryInfo pluginDirectory = new DirectoryInfo(pluginPath);
+            if (!pluginDirectory.Exists)
+                pluginDirectory.Create();
+
+            //Берем из директории все файлы с расширением .dll      
+            var pluginFiles = Directory.GetFiles(pluginPath, "*.dll");
+            foreach (var file in pluginFiles)
+            {
+                if (file != (pluginPath + "\\" + "PluginInterface.dll"))
+                {
+                    //Загружаем сборку
+                    Assembly asm = Assembly.LoadFrom(file);
+                    //Ищем типы, имплементирующие наш интерфейс IPlugin
+                    var types = asm.GetTypes().
+                                    Where(t => t.GetInterfaces().
+                                    Where(i => i.FullName == typeof(IPlugin).FullName).Any());
+
+                    //Заполняем экземплярами полученных типов коллекцию плагинов
+                    foreach (var type in types)
+                    {
+                        var plugin = asm.CreateInstance(type.FullName) as IPlugin;
+                        PluginsList.Add(plugin);
+                    }
+                }
+            }
         }
 
     }

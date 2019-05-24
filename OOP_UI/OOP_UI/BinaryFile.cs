@@ -9,8 +9,10 @@ namespace OOP_UI
 
     public static class BinarySerialization
     {
-        public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
+        public static void WriteToBinaryFile<T>(string filePath, T objectToWrite)
         {
+            bool append = false;
+
             using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
             {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
