@@ -1,0 +1,9 @@
+C:\Users\User\source\repos\Base64\Base64\bin\Debug\Base64.dll
+C:\Users\User\source\repos\Base64\Base64\bin\Debug\Base64.pdb
+C:\Users\User\source\repos\Base64\Base64\bin\Debug\PluginInterface.dll
+C:\Users\User\source\repos\Base64\Base64\obj\Debug\Base64.csprojAssemblyReference.cache
+C:\Users\User\source\repos\Base64\Base64\obj\Debug\Base64.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\Base64\Base64\obj\Debug\Base64.csproj.CopyComplete
+C:\Users\User\source\repos\Base64\Base64\obj\Debug\Base64.dll
+C:\Users\User\source\repos\Base64\Base64\obj\Debug\Base64.pdb
+C:\Users\User\source\repos\Base64\Base64\bin\Debug\System.Net.Http.dll

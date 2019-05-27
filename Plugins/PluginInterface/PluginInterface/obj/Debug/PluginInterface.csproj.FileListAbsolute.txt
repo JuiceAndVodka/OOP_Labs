@@ -1,0 +1,8 @@
+C:\Users\User\source\repos\PluginInterface\PluginInterface\bin\Debug\PluginInterface.dll
+C:\Users\User\source\repos\PluginInterface\PluginInterface\bin\Debug\PluginInterface.pdb
+C:\Users\User\source\repos\PluginInterface\PluginInterface\obj\Debug\PluginInterface.csprojAssemblyReference.cache
+C:\Users\User\source\repos\PluginInterface\PluginInterface\obj\Debug\PluginInterface.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\PluginInterface\PluginInterface\obj\Debug\PluginInterface.dll
+C:\Users\User\source\repos\PluginInterface\PluginInterface\obj\Debug\PluginInterface.pdb
+C:\Users\User\source\repos\PluginInterface\PluginInterface\bin\Debug\System.Net.Http.dll
+C:\Users\User\source\repos\PluginInterface\PluginInterface\obj\Debug\PluginInterface.csproj.CopyComplete

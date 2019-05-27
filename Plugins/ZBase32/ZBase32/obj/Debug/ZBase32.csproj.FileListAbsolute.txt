@@ -1,0 +1,8 @@
+C:\Users\User\source\repos\ZBase32\ZBase32\bin\Debug\ZBase32.dll
+C:\Users\User\source\repos\ZBase32\ZBase32\bin\Debug\ZBase32.pdb
+C:\Users\User\source\repos\ZBase32\ZBase32\bin\Debug\PluginInterface.dll
+C:\Users\User\source\repos\ZBase32\ZBase32\obj\Debug\ZBase32.csprojAssemblyReference.cache
+C:\Users\User\source\repos\ZBase32\ZBase32\obj\Debug\ZBase32.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\ZBase32\ZBase32\obj\Debug\ZBase32.csproj.CopyComplete
+C:\Users\User\source\repos\ZBase32\ZBase32\obj\Debug\ZBase32.dll
+C:\Users\User\source\repos\ZBase32\ZBase32\obj\Debug\ZBase32.pdb
